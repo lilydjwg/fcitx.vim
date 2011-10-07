@@ -1,0 +1,18 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=3764
+
+(fcitx is a Chinese input method so no English description.)
+
+Fcitx 输入法自动切换
+
+在离开/重新进入插入模式时自动切换输入法状态，以便在普通模式下始终是英文输入模式，切换回插入模式时恢复离开时的输入法输入模式。状态为每个缓冲区单独保存，所以在中文文档和英文代码间交叉跳转编辑也得心应手！
+
+无需任何配置！
+
+要求：
+fcitx 版本 3.6 以上，建议 fcitx 4.0 以上
+
+可选：
+Python 3 或者 Python 支持以获得更快更好的效果。注意对于 vim 版本<7.3.288，如果同时编译了 Python 2 & 3 支持，因为此 vim 不能同时运行两个版本的 Python，而本脚本首先检查 Python3，所以会导致出错或者 Python 2 不可用。
+
+开发：
+它是 https://github.com/lilydjwg/dotvim 的一部分
