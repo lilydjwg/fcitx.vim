@@ -1,18 +1,23 @@
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=3764
 
-(fcitx is a Chinese input method so no English description.)
+Keep and restore fcitx state for each buffer separately when leaving/re-entering insert mode. Like always typing English in normal mode, but Chinese in insert mode.
 
-Fcitx 输入法自动切换
+Requires: fcitx 3.6 or later, 4.0 or later will be better.
 
-在离开/重新进入插入模式时自动切换输入法状态，以便在普通模式下始终是英文输入模式，切换回插入模式时恢复离开时的输入法输入模式。状态为每个缓冲区单独保存，所以在中文文档和英文代码间交叉跳转编辑也得心应手！
+Developing: It's a part of https://github.com/lilydjwg/dotvim
 
-无需任何配置！
+A mirror repo: https://github.com/vim-scripts/fcitx.vim
 
-要求：
-fcitx 版本 3.6 以上，建议 fcitx 4.0 以上
+Warning:
+1, It will be faster and better with Python (3 or 2) enabled Vim. But some old version Vim enabled both Python 2 & 3 may have some issues.
+2, If you use Vim in terminal, to avoid the Esc delay, please set 'ttimeoutlen' to 100 or some other value. And check screen's 'maptimeout' or tmux's 'escape-time' option if you use it too.
 
-可选：
-Python 3 或者 Python 支持以获得更快更好的效果。注意对于 vim 版本<7.3.288，如果同时编译了 Python 2 & 3 支持，因为此 vim 不能同时运行两个版本的 Python，而本脚本首先检查 Python3，所以会导致出错或者 Python 2 不可用。
 
-开发：
-它是 https://github.com/lilydjwg/dotvim 的一部分
+在离开或重新进入插入模式时自动记录和恢复每个缓冲区各自的输入法状态，以便在普通模式下始终是英文输入模式，切换回插入模式时恢复离开前的输入法输入模式。
+
+要求: fcitx 版本 3.6 以上，建议 fcitx 4.0 以上。
+
+注意事项:
+1. Vim 如有 Python 3或2 支持可以获得更快更好的效果。但对于较旧的 Vim 版本，如果同时编译了 Python 2 & 3 支持，因为此 Vim 不能同时运行两个版本的 Python，而本脚本首先检查 Python 3，所以会导致出错或者 Python 2 不可用。
+2. 终端下请设置 Vim 'ttimeoutlen' 选项为较小值（如100），否则退出插入模式时会有较严重的延迟。同样会造成延迟的还有 screen 的 maptimeout 选项以及 tmux 的 escape-time 选项。
+

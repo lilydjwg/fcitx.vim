@@ -16,7 +16,7 @@ def fcitxtalk(command=None):
   try:
     sock.connect(fcitxsocketfile)
   except socket.error:
-    vim.command('echohl WarningMsg | echo "fcitx.vim: socket 连接出错" | echohl NONE')
+    vim.command('echohl WarningMsg | echo "fcitx.vim: socket connection error" | echohl NONE')
     return
   try:
     if not command:
@@ -27,7 +27,7 @@ def fcitxtalk(command=None):
     elif command == 'o':
       sock.send(FCITX_OPEN)
     else:
-      raise ValueError('未知命令')
+      raise ValueError('unknown fcitx command')
   finally:
     sock.close()
 

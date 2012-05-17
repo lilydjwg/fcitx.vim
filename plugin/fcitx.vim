@@ -1,7 +1,8 @@
 scriptencoding utf-8
-" fcitx.vim  记住插入模式小企鹅输入法的状态
+" fcitx.vim	remember fcitx's input state for each buffer
 " Author:       lilydjwg
-" Maintainer:   lilydjwg
+" Version:	1.1
+" URL:		http://www.vim.org/scripts/script.php?script_id=3764
 " ---------------------------------------------------------------------
 " Load Once:
 if &cp || exists("g:loaded_fcitx") || !exists('$DISPLAY') || exists('$SSH_TTY')
@@ -12,9 +13,6 @@ if has("python3")
 elseif has("python")
   let python3 = 0
 else
-  echohl WarningMsg
-  echomsg "fcitx.vim: 没有 Python 支持，尝试使用旧版本。"
-  echohl None
   runtime so/fcitx.vim
   finish
 endif
@@ -30,7 +28,7 @@ if !filewritable(s:fcitxsocketfile) "try again
     let s:fcitxsocketfile = s:fcitxsocketfile . '.0'
     if !filewritable(s:fcitxsocketfile)
       echohl WarningMsg
-      echomsg "没有找到 fcitx 的 socket 文件，fcitx.vim 没有载入。"
+      echomsg "socket file of fcitx not found, fcitx.vim not loaded."
       echohl None
       finish
     endif
