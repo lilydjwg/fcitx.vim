@@ -1,11 +1,11 @@
 scriptencoding utf-8
 " fcitx.vim	remember fcitx's input state for each buffer
 " Author:       lilydjwg
-" Version:	1.1
+" Version:	1.2
 " URL:		http://www.vim.org/scripts/script.php?script_id=3764
 " ---------------------------------------------------------------------
 " Load Once:
-if &cp || exists("g:loaded_fcitx") || !exists('$DISPLAY') || exists('$SSH_TTY')
+if &cp || exists("g:loaded_fcitx") || !exists('$DISPLAY') || exists('$SSH_TTY') || has('gui_macvim')
   finish
 endif
 if has("python3")
@@ -19,18 +19,22 @@ endif
 let s:keepcpo = &cpo
 set cpo&vim
 " this is quicker than expand()
-let s:fcitxsocketfile = '/tmp/fcitx-socket-' . $DISPLAY
-if !filewritable(s:fcitxsocketfile) "try again
-  if strridx(s:fcitxsocketfile, '.') > 0
-    let s:fcitxsocketfile = strpart(s:fcitxsocketfile, 0,
-	  \ strridx(s:fcitxsocketfile, '.'))
-  else
-    let s:fcitxsocketfile = s:fcitxsocketfile . '.0'
-    if !filewritable(s:fcitxsocketfile)
-      echohl WarningMsg
-      echomsg "socket file of fcitx not found, fcitx.vim not loaded."
-      echohl None
-      finish
+if exists('$FCITX_SOCKET')
+  let s:fcitxsocketfile = $FCITX_SOCKET
+else
+  let s:fcitxsocketfile = '/tmp/fcitx-socket-' . $DISPLAY
+  if !filewritable(s:fcitxsocketfile) "try again
+    if strridx(s:fcitxsocketfile, '.') > 0
+      let s:fcitxsocketfile = strpart(s:fcitxsocketfile, 0,
+            \ strridx(s:fcitxsocketfile, '.'))
+    else
+      let s:fcitxsocketfile = s:fcitxsocketfile . '.0'
+      if !filewritable(s:fcitxsocketfile)
+        echohl WarningMsg
+        echomsg "socket file of fcitx not found, fcitx.vim not loaded."
+        echohl None
+        finish
+      endif
     endif
   endif
 endif
