@@ -9,6 +9,8 @@ FCITX_OPEN   = struct.pack('i', 1 | (1 << 16))
 FCITX_CLOSE  = struct.pack('i', 1)
 INT_SIZE     = struct.calcsize('i')
 fcitxsocketfile = vim.eval('s:fcitxsocketfile')
+if fcitxsocketfile[0] == '@': # abstract socket
+  fcitxsocketfile = '\x00' + fcitxsocketfile[1:]
 
 def fcitxtalk(command=None):
   sock = socket.socket(socket.AF_UNIX)
