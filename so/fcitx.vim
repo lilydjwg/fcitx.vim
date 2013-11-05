@@ -1,7 +1,6 @@
 " fcitx.vim  记住插入模式小企鹅输入法的状态
 " Author:       lilydjwg
 " Maintainer:   lilydjwg
-" Last Change:  2010-11-18
 " Note:         另有使用 Python3 接口的新版本
 " ---------------------------------------------------------------------
 " Load Once:
@@ -9,8 +8,7 @@ if (has("win32") || has("win95") || has("win64") || has("win16"))
   " Windows 下不要载入
   finish
 endif
-if !exists('$DISPLAY')
-  " 没有 X，不要载入
+if !exists('$DISPLAY') || exists('$SSH_TTY') || has('gui_macvim')
   finish
 endif
 if &cp || exists("g:loaded_fcitx") || !executable("fcitx-remote")

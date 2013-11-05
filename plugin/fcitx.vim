@@ -1,11 +1,13 @@
 scriptencoding utf-8
 " fcitx.vim	remember fcitx's input state for each buffer
 " Author:       lilydjwg
-" Version:	1.2
+" Version:	1.2.3
 " URL:		http://www.vim.org/scripts/script.php?script_id=3764
 " ---------------------------------------------------------------------
 " Load Once:
-if &cp || exists("g:loaded_fcitx") || !exists('$DISPLAY') || exists('$SSH_TTY') || has('gui_macvim')
+if &cp || exists("g:loaded_fcitx") || (
+      \ (!exists('$DISPLAY') || exists('$SSH_TTY') || has('gui_macvim'))
+      \ && !exists('$FCITX_SOCKET'))
   finish
 endif
 if has("python3")

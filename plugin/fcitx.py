@@ -27,6 +27,11 @@ def fcitxtalk(command=None):
       sock.send(FCITX_OPEN)
     else:
       raise ValueError('unknown fcitx command')
+  except struct.error:
+    # if there's a proxy of some kind, connect and send *will* succeed when
+    # fcitx isn't there.
+    vim.command('echohl WarningMsg | echo "fcitx.vim: socket error" | echohl NONE')
+    return
   finally:
     sock.close()
 
