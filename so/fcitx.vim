@@ -8,7 +8,7 @@ if (has("win32") || has("win95") || has("win64") || has("win16"))
   " Windows 下不要载入
   finish
 endif
-if !exists('$DISPLAY') || exists('$SSH_TTY') || has('gui_macvim')
+if !(exists('$DISPLAY') || has('gui_macvim')) || exists('$SSH_TTY')
   finish
 endif
 if &cp || exists("g:loaded_fcitx") || !executable("fcitx-remote")

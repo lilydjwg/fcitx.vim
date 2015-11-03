@@ -11,6 +11,8 @@ Warning:
 1, It will be faster and better with Python (3 or 2) enabled Vim. But some old version Vim enabled both Python 2 & 3 may have some issues.
 2, If you use Vim in terminal, to avoid the Esc delay, please set 'ttimeoutlen' to 100 or some other value. And check screen's 'maptimeout' or tmux's 'escape-time' option if you use it too.
 
+For Mac OS X users, you can use a "fcitx-remote" here https://github.com/CodeFalling/fcitx-remote-for-osx , together with the VimL version (the so/fcitx.vim file).
+
 在离开或重新进入插入模式时自动记录和恢复每个缓冲区各自的输入法状态，以便在普通模式下始终是英文输入模式，切换回插入模式时恢复离开前的输入法输入模式。
 
 要求: fcitx 版本 3.6 以上，建议 fcitx 4.0 以上。
@@ -25,3 +27,5 @@ www.vim.org: http://www.vim.org/scripts/script.php?script_id=3764
 2. 终端下请设置 Vim 'ttimeoutlen' 选项为较小值（如100），否则退出插入模式时会有较严重的延迟。同样会造成延迟的还有 screen 的 maptimeout 选项以及 tmux 的 escape-time 选项。
 
 如果你需要跨主机使用 fcitx.vim，请参考此文： http://lilydjwg.is-programmer.com/2012/7/27/using-fcitx-remote-interface-remotely-via-socat.34729.html
+
+Mac OS X 用户可以使用此项目 https://github.com/CodeFalling/fcitx-remote-for-osx 提供的 fcitx-remote 命令，配合本软件的 VimL 版（so/fcitx.vim 文件）来使用。
