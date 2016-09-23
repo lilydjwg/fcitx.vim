@@ -26,6 +26,6 @@ www.vim.org: http://www.vim.org/scripts/script.php?script_id=3764
 1. Vim 如有 Python 3或2 支持可以获得更快更好的效果。但对于较旧的 Vim 版本，如果同时编译了 Python 2 & 3 支持，因为此 Vim 不能同时运行两个版本的 Python，而本脚本首先检查 Python 3，所以会导致出错或者 Python 2 不可用。
 2. 终端下请设置 Vim 'ttimeoutlen' 选项为较小值（如100），否则退出插入模式时会有较严重的延迟。同样会造成延迟的还有 screen 的 maptimeout 选项以及 tmux 的 escape-time 选项。
 
-如果你需要跨主机使用 fcitx.vim，请参考此文： http://lilydjwg.is-programmer.com/2012/7/27/using-fcitx-remote-interface-remotely-via-socat.34729.html
+如果你想跨主机使用 fcitx.vim，请参考此文： http://blog.lilydjwg.me/2012/7/27/using-fcitx-remote-interface-remotely-via-socat.34729.html
 
 Mac OS X 用户可以使用此项目 https://github.com/CodeFalling/fcitx-remote-for-osx 提供的 fcitx-remote 命令，配合本软件的 VimL 版（so/fcitx.vim 文件）来使用。
