@@ -5,50 +5,78 @@ import vim
 import socket
 import struct
 
-FCITX_STATUS = struct.pack('i', 0)
-FCITX_OPEN   = struct.pack('i', 1 | (1 << 16))
-FCITX_CLOSE  = struct.pack('i', 1)
-INT_SIZE     = struct.calcsize('i')
 fcitxsocketfile = vim.eval('s:fcitxsocketfile')
 
-if fcitxsocketfile[0] == '@': # abstract socket
-  fcitxsocketfile = '\x00' + fcitxsocketfile[1:]
+class FcitxComm(object):
+  STATUS     = struct.pack('i', 0)
+  ACTIVATE   = struct.pack('i', 1 | (1 << 16))
+  DEACTIVATE = struct.pack('i', 1)
+  INT_SIZE   = struct.calcsize('i')
 
-def fcitxtalk(command=None):
-  sock = socket.socket(socket.AF_UNIX)
-  sock.settimeout(0.5)
-  try:
-    sock.connect(fcitxsocketfile)
-  except (socket.error, socket.timeout):
-    vim.command('echohl WarningMsg | echo "fcitx.vim: socket connection error" | echohl NONE')
-    return
-  try:
-    if not command:
-      sock.send(FCITX_STATUS)
-      return struct.unpack('i', sock.recv(INT_SIZE))[0]
-    elif command == 'c':
-      sock.send(FCITX_CLOSE)
-    elif command == 'o':
-      sock.send(FCITX_OPEN)
-    else:
-      raise ValueError('unknown fcitx command')
-  except (struct.error, socket.timeout):
-    # if there's a proxy of some kind, connect and send *will* succeed when
-    # fcitx isn't there.
-    vim.command('echohl WarningMsg | echo "fcitx.vim: socket error" | echohl NONE')
-    return
-  finally:
-    sock.close()
+  def __init__(self, socketfile):
+    if socketfile[0] == '@': # abstract socket
+      socketfile = '\x00' + socketfile[1:]
+    self.socketfile = socketfile
+    self.sock = None
+
+  def status(self):
+    return self._with_reconnect(self._status) == 2
+
+  def activate(self):
+    self._with_reconnect(self._command, self.ACTIVATE)
+
+  def deactivate(self):
+    self._with_reconnect(self._command, self.DEACTIVATE)
+
+  def _error(self, e):
+    estr = str(e).replace('"', r'\"')
+    file = self.socketfile.replace('"', r'\"')
+    vim.command('echohl WarningMsg | echo "fcitx.vim: socket %s error: %s" | echohl NONE' % (file, estr))
+
+  def _connect(self):
+    self.sock = sock = socket.socket(socket.AF_UNIX)
+    sock.settimeout(0.5)
+    try:
+      sock.connect(self.socketfile)
+      return True
+    except (socket.error, socket.timeout, struct.error) as e:
+      self._error(e)
+      return False
+
+  def _with_reconnect(self, func, *args, **kwargs):
+    if self.sock is None:
+      if not self._connect():
+        return
+
+    for _ in range(2):
+      try:
+        return func(*args, **kwargs)
+      except (socket.error, socket.timeout) as e:
+        if self._connect():
+          continue
+        else:
+          return
+
+    self._error(e)
+
+  def _status(self):
+    self.sock.send(self.STATUS)
+    return struct.unpack('i', self.sock.recv(self.INT_SIZE))[0]
+
+  def _command(self, cmd):
+    self.sock.send(cmd)
+
+Fcitx = FcitxComm(fcitxsocketfile)
 
 def fcitx2en():
-  if fcitxtalk() == 2:
+  if Fcitx.status():
     vim.command('let b:inputtoggle = 1')
-    fcitxtalk('c')
+    Fcitx.deactivate()
 
 def fcitx2zh():
   if vim.eval('exists("b:inputtoggle")') == '1':
     if vim.eval('b:inputtoggle') == '1':
-      fcitxtalk('o')
+      Fcitx.activate()
       vim.command('let b:inputtoggle = 0')
   else:
     vim.command('let b:inputtoggle = 0')
