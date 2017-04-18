@@ -20,13 +20,13 @@ class FcitxComm(object):
     self.sock = None
 
   def status(self):
-    return self._with_reconnect(self._status) == 2
+    return self._with_socket(self._status) == 2
 
   def activate(self):
-    self._with_reconnect(self._command, self.ACTIVATE)
+    self._with_socket(self._command, self.ACTIVATE)
 
   def deactivate(self):
-    self._with_reconnect(self._command, self.DEACTIVATE)
+    self._with_socket(self._command, self.DEACTIVATE)
 
   def _error(self, e):
     estr = str(e).replace('"', r'\"')
@@ -39,25 +39,20 @@ class FcitxComm(object):
     try:
       sock.connect(self.socketfile)
       return True
-    except (socket.error, socket.timeout, struct.error) as e:
+    except (socket.error, socket.timeout) as e:
       self._error(e)
       return False
 
-  def _with_reconnect(self, func, *args, **kwargs):
-    if self.sock is None:
-      if not self._connect():
-        return
+  def _with_socket(self, func, *args, **kwargs):
+    # fcitx doesn't support connection reuse
+    if not self._connect():
+      return
 
-    for _ in range(2):
+    with self.sock:
       try:
         return func(*args, **kwargs)
-      except (socket.error, socket.timeout) as e:
-        if self._connect():
-          continue
-        else:
-          return
-
-    self._error(e)
+      except (socket.error, socket.timeout, struct.error) as e:
+        self._error(e)
 
   def _status(self):
     self.sock.send(self.STATUS)
