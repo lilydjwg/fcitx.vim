@@ -4,6 +4,7 @@ import os
 import vim
 import socket
 import struct
+import contextlib
 
 fcitxsocketfile = vim.eval('s:fcitxsocketfile')
 
@@ -48,7 +49,7 @@ class FcitxComm(object):
     if not self._connect():
       return
 
-    with self.sock:
+    with contextlib.closing(self.sock):
       try:
         return func(*args, **kwargs)
       except (socket.error, socket.timeout, struct.error) as e:
