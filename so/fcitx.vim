@@ -11,7 +11,7 @@ endif
 if !(exists('$DISPLAY') || has('gui_macvim')) || exists('$SSH_TTY')
   finish
 endif
-if &cp || exists("g:loaded_fcitx") || !executable("fcitx-remote")
+if &cp || exists("g:loaded_fcitx") || !executable(g:fcitx_remote)
   finish
 endif
 let s:keepcpo = &cpo
@@ -20,16 +20,16 @@ set cpo&vim
 " ---------------------------------------------------------------------
 " Functions:
 function Fcitx2en()
-  let inputstatus = system("fcitx-remote")
+  let inputstatus = system(g:fcitx_remote)
   if inputstatus == 2
     let b:inputtoggle = 1
-    call system("fcitx-remote -c")
+    call system(g:fcitx_remote . ' -c')
   endif
 endfunction
 function Fcitx2zh()
   try
     if b:inputtoggle == 1
-      call system("fcitx-remote -o")
+      call system(g:fcitx_remote . ' -o')
       let b:inputtoggle = 0
     endif
   catch /inputtoggle/

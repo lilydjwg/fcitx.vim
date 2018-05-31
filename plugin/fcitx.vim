@@ -10,6 +10,14 @@ if &cp || exists("g:loaded_fcitx") || (
       \ && !exists('$FCITX_SOCKET'))
   finish
 endif
+if executable('fcitx5-remote')
+  " currently python version does not support fcitx5
+  let g:fcitx_remote = 'fcitx5-remote'
+  runtime so/fcitx.vim
+  finish
+else
+  let g:fcitx_remote = 'fcitx-remote'
+endif
 if has("python3")
   let python3 = 1
 elseif has("python")
