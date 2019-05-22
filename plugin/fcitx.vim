@@ -1,8 +1,8 @@
 scriptencoding utf-8
 " fcitx.vim	remember fcitx's input state for each buffer
 " Author:       lilydjwg
-" Version:	1.2.5
-" URL:		http://www.vim.org/scripts/script.php?script_id=3764
+" Version:	1.2.6
+" URL:		https://www.vim.org/scripts/script.php?script_id=3764
 " ---------------------------------------------------------------------
 " Load Once:
 if &cp || exists("g:loaded_fcitx") || (
