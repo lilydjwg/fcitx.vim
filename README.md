@@ -1,6 +1,6 @@
 Keep and restore fcitx state for each buffer separately when leaving/re-entering insert mode. Like always typing English in normal mode, but Chinese in insert mode.
 
-Requires: fcitx 3.6 or later, 4.0 or later will be better.
+Requires: fcitx 3.6 or later, 4.0 or later will be better. For fcitx5, switch to the `fcitx5` branch.
 
 Settings: environment variable `$FCITX_SOCKET` specifies a socket to connect instead of figuring out itself. This can be an abstract socket address starting with `@` from version 1.2.4 on.
 
@@ -16,7 +16,7 @@ For Mac OS X users, you can use a "fcitx-remote" [here](https://github.com/CodeF
 
 在离开或重新进入插入模式时自动记录和恢复每个缓冲区各自的输入法状态，以便在普通模式下始终是英文输入模式，切换回插入模式时恢复离开前的输入法输入模式。
 
-要求: fcitx 版本 3.6 以上，建议 fcitx 4.0 以上。
+要求: fcitx 版本 3.6 以上，建议 fcitx 4.0 以上。至于 fcitx5，请切换到 `fcitx5` 分支。
 
 配置：环境变量 `$FCITX_SOCKET` 指定要连接的套接字路径，而非默认的。自版本 1.2.4 起，此变量若以 `@` 字符开头，则被认为是抽象套接字地址。
 
