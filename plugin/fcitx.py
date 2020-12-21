@@ -1,4 +1,5 @@
 import vim
+import functools
 
 import dbus
 
@@ -19,11 +20,25 @@ class FcitxComm():
 
 Fcitx = FcitxComm()
 
+def may_reconnect(func):
+  @functools.wraps(func)
+  def wrapped():
+    global Fcitx
+    for _ in range(2):
+      try:
+        return func()
+      except Exception as e:
+        vim.command('echohl WarningMsg | echom "fcitx.vim: %s: %s" | echohl NONE' % (type(e).__name__, e))
+        Fcitx = FcitxComm()
+  return wrapped
+
+@may_reconnect
 def fcitx2en():
   if Fcitx.status():
     vim.command('let b:inputtoggle = 1')
     Fcitx.deactivate()
 
+@may_reconnect
 def fcitx2zh():
   if vim.eval('exists("b:inputtoggle")') == '1':
     if vim.eval('b:inputtoggle') == '1':
