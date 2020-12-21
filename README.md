@@ -6,6 +6,8 @@ Requires:
 * Vim with Python 3 compiled in
 * The python-dbus package
 
+Links:
+
 * [git repo](https://github.com/lilydjwg/fcitx.vim)
 * [www.vim.org](https://www.vim.org/scripts/script.php?script_id=3764)
 
@@ -20,6 +22,8 @@ Warning:
 * fcitx 5
 * 带有 Python 3 支持的 Vim
 * python-dbus 包
+
+链接：
 
 * [git 仓库](https://github.com/lilydjwg/fcitx.vim)
 * [www.vim.org](https://www.vim.org/scripts/script.php?script_id=3764)
