@@ -18,7 +18,10 @@ class FcitxComm():
   def deactivate(self):
     self.fcitx.Deactivate()
 
-Fcitx = FcitxComm()
+try:
+  Fcitx = FcitxComm()
+except dbus.exceptions.DBusException as e:
+  vim.command('echohl WarningMsg | echom "fcitx.vim not loaded: %s" | echohl NONE' % e)
 
 def may_reconnect(func):
   @functools.wraps(func)

@@ -12,9 +12,11 @@ let s:keepcpo = &cpo
 set cpo&vim
 let g:loaded_fcitx = 1
 
-exe 'py3file' expand('<sfile>:r') . '.py'
-au InsertLeave * py3 fcitx2en()
-au InsertEnter * py3 fcitx2zh()
+try " abort on fail
+  exe 'py3file' expand('<sfile>:r') . '.py'
+  au InsertLeave * py3 fcitx2en()
+  au InsertEnter * py3 fcitx2zh()
+endtry
 " ---------------------------------------------------------------------
 "  Restoration And Modelines:
 let &cpo=s:keepcpo
