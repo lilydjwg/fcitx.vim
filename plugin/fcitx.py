@@ -20,8 +20,10 @@ class FcitxComm():
 
 try:
   Fcitx = FcitxComm()
+  fcitx_loaded = True
 except dbus.exceptions.DBusException as e:
   vim.command('echohl WarningMsg | echom "fcitx.vim not loaded: %s" | echohl NONE' % e)
+  fcitx_loaded = False
 
 def may_reconnect(func):
   @functools.wraps(func)
