@@ -1,10 +1,13 @@
 Keep and restore fcitx state for each buffer separately when leaving/re-entering insert mode. Like always typing English in normal mode, but Chinese in insert mode.
 
+The branch uses a server-client architecture to support cross-user usage (e.g. `sudo vim`) or even cross-host usages (not implemented yet).
+
 Requires:
 
 * fcitx 5
 * Vim with Python 3 compiled in
 * The python-dbus package
+* Run the `fcitx-status` script as a service
 
 Links:
 
@@ -17,11 +20,14 @@ Warning:
 
 在离开或重新进入插入模式时自动记录和恢复每个缓冲区各自的输入法状态，以便在普通模式下始终是英文输入模式，切换回插入模式时恢复离开前的输入法输入模式。
 
+这个分支使用服务端/客户端架构，以便支持跨用户的用法（如 `sudo vim`），甚至是跨主机的用法（尚未实现）。
+
 要求:
 
 * fcitx 5
 * 带有 Python 3 支持的 Vim
 * python-dbus 包
+* 作为服务运行 `fcitx-status` 脚本
 
 链接：
 
