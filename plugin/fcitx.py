@@ -47,6 +47,7 @@ class FcitxComm(object):
     try:
       return func(*args, **kwargs)
     except (socket.error, socket.timeout, struct.error) as e:
+      self.sock = None
       self._error(e)
 
   def _status(self):

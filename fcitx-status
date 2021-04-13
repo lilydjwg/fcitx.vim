@@ -11,13 +11,15 @@ def may_reconnect(func):
     for _ in range(2):
       try:
         return func(self, *args, **kwargs)
-      except dbus.exceptions.DBusException:
+      except (dbus.exceptions.DBusException, AttributeError):
         self.connect()
   return wrapped
 
 class FcitxComm():
   def __init__(self):
-    self.connect()
+    # don't connect on start; connect on demand
+    # self.connect()
+    pass
 
   def connect(self):
     bus = dbus.SessionBus()
