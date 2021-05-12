@@ -35,3 +35,4 @@ D-Bus 只在同一用户时有效，所以使用 `sudo vim` 时本代码就失�
 注意事项:
 
 1. 终端下请设置 Vim `'ttimeoutlen'` 选项为较小值（如100），否则退出插入模式时会有较严重的延迟。同样会造成延迟的还有 screen 的 `maptimeout` 选项以及 tmux 的 `escape-time` 选项。
+2. 请在fcitx5-configtool中确认英语是第一个输入法，中文是第二个输入法，rime用户请注意在fcitx5中一定要有两个输入法。
