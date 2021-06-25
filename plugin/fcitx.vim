@@ -21,8 +21,8 @@ try " abort on fail
       au InsertLeave * py3 fcitx2en()
     endif
     au InsertEnter * py3 fcitx2zh()
-    au CmdlineEnter / py3 fcitx2zh()
-    au CmdlineLeave / py3 fcitx2en()
+    au CmdlineEnter [/\?] py3 fcitx2zh()
+    au CmdlineLeave [/\?] py3 fcitx2en()
   endif
 endtry
 " ---------------------------------------------------------------------
