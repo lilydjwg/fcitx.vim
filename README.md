@@ -5,7 +5,7 @@ D-Bus only works with the same user so this won't work with `sudo vim`. See the 
 By default, it use python3 and D-Bus to toggle IME state.
 If you set `g:fcitx5_remote` to the executable path of `fcitx5-remote` **BEFORE** loading the plugin, it will use `fcitx5-remote` instead of python and D-Bus. In this case, python3 support is optional.
 
-Usually `fcitx5-remote` mode is way faster since Python script need quite some time for the initial load if you don't use any other plugins that load Python.
+Usually `fcitx5-remote` mode is way faster to start up since Python script need quite some time for the initial load if you don't use any other plugins that load Python. The Python version will be faster while switching.
 
 Base requirements:
 
@@ -36,7 +36,7 @@ D-Bus 只在同一用户时有效，所以使用 `sudo vim` 时本代码就失�
 本插件默认会使用 Python 3 并通过 D-Bus 来切换输入法状态。
 但如果你在加载插件**之前**设置了 `g:fcitx5_remote` 为你已安装的 `fcitx5-remote` 可执行文件的路径，那么本插件会使用它来切换输入法状态；此模式下本插件并不需要 Python 。
 
-如果你没有其他使用 Python 的 Vim 插件，本插件的 Python 模式初始化可能会显著拖慢启动时间；而 `fcitx5-remote` 模式则没有这个问题。
+如果你没有其他使用 Python 的 Vim 插件，本插件的 Python 模式初始化可能会显著拖慢启动时间；而 `fcitx5-remote` 模式则没有这个问题。Python 模式会在切换时更快。
 
 基本要求：
 
