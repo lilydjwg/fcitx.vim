@@ -14,8 +14,8 @@ set cpo&vim
 " If g:fcitx5_remote is set (to the path to `fcitx5-remove`), use it to toggle IME state.
 if exists("g:fcitx5_remote")
   function Fcitx2en()
-    let inputstatus = system(g:fcitx5_remote)
-    if inputstatus == 2
+    let inputstatus = trim(system(g:fcitx5_remote))
+    if inputstatus == '2'
       let b:inputtoggle = 1
       call system(g:fcitx5_remote . ' -c')
     endif
