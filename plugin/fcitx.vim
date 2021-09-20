@@ -11,19 +11,19 @@ endif
 let s:keepcpo = &cpo
 set cpo&vim
 
-" If g:fcitx5_remote is set (to the path to `fcitx5-remove`), use it to toggle IME state.
+" If g:fcitx5_remote is set (to the path to `fcitx5-remote`), use it to toggle IME state.
 if exists("g:fcitx5_remote")
   function Fcitx2en()
-    let inputstatus = trim(system(g:fcitx5_remote))
+    let inputstatus = trim(system([g:fcitx5_remote]))
     if inputstatus == '2'
       let b:inputtoggle = 1
-      call system(g:fcitx5_remote . ' -c')
+      call system([g:fcitx5_remote, '-c'])
     endif
   endfunction
   function Fcitx2zh()
     try
       if b:inputtoggle == 1
-        call system(g:fcitx5_remote . ' -o')
+        call system([g:fcitx5_remote, '-o'])
         let b:inputtoggle = 0
       endif
     catch /inputtoggle/
