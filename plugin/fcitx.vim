@@ -5,7 +5,7 @@ scriptencoding utf-8
 " URL:		https://www.vim.org/scripts/script.php?script_id=3764
 " ---------------------------------------------------------------------
 " Load Once:
-if &cp || exists("g:loaded_fcitx") || !exists('$DISPLAY') || !has('python3')
+if &cp || exists("g:loaded_fcitx") || (!exists('$DISPLAY') && !exists('$WAYLAND_DISPLAY')) || !has('python3')
   finish
 endif
 let s:keepcpo = &cpo
