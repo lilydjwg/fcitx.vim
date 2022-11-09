@@ -18,8 +18,26 @@ class FcitxComm():
   def deactivate(self):
     self.fcitx.Deactivate()
 
+class FcitxRimeComm():
+  def __init__(self):
+    bus = dbus.SessionBus()
+    obj = bus.get_object('org.fcitx.Fcitx5', '/rime')
+    self.fcitx = dbus.Interface(obj, dbus_interface='org.fcitx.Fcitx.Rime1')
+
+  def status(self):
+    return self.fcitx.IsAsciiMode()
+
+  def activate(self):
+    self.fcitx.SetAsciiMode(False)
+
+  def deactivate(self):
+    self.fcitx.SetAsciiMode(True)
+
 try:
-  Fcitx = FcitxComm()
+  if vim.eval('get(g:, "fcitx5_rime")') == '1':
+    Fcitx = FcitxRimeComm()
+  else:
+    Fcitx = FcitxComm()
   fcitx_loaded = True
 except dbus.exceptions.DBusException as e:
   if not vim.vars.get('silent_unsupported'):
