@@ -22,6 +22,8 @@ Requirements for `fcitx5-remote` mode (`g:fcitx5_remote` is set):
 
 If you are using `fcitx5-rime` (which has its own state), `let g:fcitx5_rime = 1` in your `.vimrc`.
 
+The `FcitxCurrentIM()` function can be used to get current IM's name.
+
 Links:
 
 * [git repo](https://github.com/lilydjwg/fcitx.vim)
@@ -56,6 +58,8 @@ D-Bus 只在同一用户时有效，所以使用 `sudo vim` 时本代码就失�
 * fcitx5-remote
 
 如果使用 `fcitx5-rime`（它自己有输入状态），在 `.vimrc` 中设置 `let g:fcitx5_rime = 1`。
+
+`FcitxCurrentIM()` 函数可以用于获取当前输入法的名字。
 
 链接：
 

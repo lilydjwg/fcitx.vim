@@ -18,6 +18,9 @@ class FcitxComm():
   def deactivate(self):
     self.fcitx.Deactivate()
 
+  def current(self):
+    return self.fcitx.CurrentInputMethod()
+
 class FcitxRimeComm():
   def __init__(self):
     bus = dbus.SessionBus()
@@ -32,6 +35,9 @@ class FcitxRimeComm():
 
   def deactivate(self):
     self.fcitx.SetAsciiMode(True)
+
+  def current(self):
+    return self.fcitx.GetCurrentSchema()
 
 try:
   if vim.eval('get(g:, "fcitx5_rime")') == '1':
@@ -69,3 +75,7 @@ def fcitx2zh():
       vim.command('let b:inputtoggle = 0')
   else:
     vim.command('let b:inputtoggle = 0')
+
+@may_reconnect
+def fcitx_current_im():
+  return Fcitx.current()

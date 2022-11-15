@@ -44,6 +44,9 @@ elseif has('python3')
       function Fcitx2zh()
         py3 fcitx2zh()
       endfunction
+      function FcitxCurrentIM()
+        return py3eval('fcitx_current_im()')
+      endfunction
 
       let g:loaded_fcitx = 1
     endif
