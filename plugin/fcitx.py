@@ -19,7 +19,11 @@ class FcitxComm():
     self.fcitx.Deactivate()
 
   def current(self):
-    return self.fcitx.CurrentInputMethod()
+    ime = self.fcitx.CurrentInputMethod()
+    if str(ime) == 'rime':
+      rime = FcitxRimeComm()
+      ime = rime.current()
+    return ime
 
 class FcitxRimeComm():
   def __init__(self):
