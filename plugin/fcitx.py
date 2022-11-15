@@ -35,9 +35,8 @@ class FcitxRimeComm():
 
 try:
   if vim.eval('get(g:, "fcitx5_rime")') == '1':
-    Fcitx = FcitxRimeComm()
-  else:
-    Fcitx = FcitxComm()
+    FcitxComm = FcitxRimeComm
+  Fcitx = FcitxComm()
   fcitx_loaded = True
 except dbus.exceptions.DBusException as e:
   if not vim.vars.get('silent_unsupported'):
