@@ -3,11 +3,12 @@ import functools
 
 import dbus
 
-class FcitxComm():
+class FcitxComm:
   def __init__(self):
-    bus = dbus.SessionBus()
+    self.bus = bus = dbus.SessionBus()
     obj = bus.get_object('org.fcitx.Fcitx5', '/controller')
     self.fcitx = dbus.Interface(obj, dbus_interface='org.fcitx.Fcitx.Controller1')
+    self._rime = None
 
   def status(self):
     return self.fcitx.State() == 2
@@ -19,9 +20,17 @@ class FcitxComm():
     self.fcitx.Deactivate()
 
   def current(self):
-    return self.fcitx.CurrentInputMethod()
+    im = self.fcitx.CurrentInputMethod()
+    if im == 'rime':
+      return self._get_rime().GetCurrentSchema()
 
-class FcitxRimeComm():
+  def _get_rime(self):
+    if self._rime is None:
+      obj = self.bus.get_object('org.fcitx.Fcitx5', '/rime')
+      self._rime = dbus.Interface(obj, dbus_interface='org.fcitx.Fcitx.Rime1')
+    return self._rime
+
+class FcitxRimeComm:
   def __init__(self):
     bus = dbus.SessionBus()
     obj = bus.get_object('org.fcitx.Fcitx5', '/rime')
