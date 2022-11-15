@@ -23,6 +23,8 @@ class FcitxComm:
     im = self.fcitx.CurrentInputMethod()
     if im == 'rime':
       return self._get_rime().GetCurrentSchema()
+    else:
+      return im
 
   def _get_rime(self):
     if self._rime is None:
