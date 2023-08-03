@@ -65,13 +65,13 @@ endif
 " Register autocmd if successfully loaded.
 if exists("g:loaded_fcitx")
   if exists('##InsertLeavePre')
-    au InsertLeavePre * call Fcitx2en()
+    au InsertLeavePre * if reg_executing() == "" | call Fcitx2en() | endif
   else
-    au InsertLeave * call Fcitx2en()
+    au InsertLeave * if reg_executing() == "" | call Fcitx2en() | endif
   endif
-  au InsertEnter * call Fcitx2zh()
-  au CmdlineEnter [/\?] call Fcitx2zh()
-  au CmdlineLeave [/\?] call Fcitx2en()
+  au InsertEnter * if reg_executing() == "" | call Fcitx2zh() | endif
+  au CmdlineEnter [/\?] if reg_executing() == "" | call Fcitx2zh() | endif
+  au CmdlineLeave [/\?] if reg_executing() == "" | call Fcitx2en() | endif
 endif
 
 " ---------------------------------------------------------------------
