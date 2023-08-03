@@ -16,13 +16,13 @@ try " abort on fail
   exe 'py3file' expand('<sfile>:r') . '.py'
   if py3eval('fcitx_loaded')
     if exists('##InsertLeavePre')
-      au InsertLeavePre * py3 fcitx2en()
+      au InsertLeavePre * if reg_executing() == "" | exec "py3 fcitx2en()" | endif
     else
-      au InsertLeave * py3 fcitx2en()
+      au InsertLeave * if reg_executing() == "" | exec "py3 fcitx2en()" | endif
     endif
-    au InsertEnter * py3 fcitx2zh()
-    au CmdlineEnter [/\?] py3 fcitx2zh()
-    au CmdlineLeave [/\?] py3 fcitx2en()
+    au InsertEnter * if reg_executing() == "" | exec "py3 fcitx2zh()" | endif
+    au CmdlineEnter [/\?] if reg_executing() == "" | exec "py3 fcitx2zh()" | endif
+    au CmdlineLeave [/\?] if reg_executing() == "" | exec "py3 fcitx2en()" | endif
   endif
 endtry
 " ---------------------------------------------------------------------
